@@ -1,0 +1,289 @@
+/* Garante que padding e border não aumentem o tamanho dos elementos */
+* {
+    box-sizing: border-box;
+  }
+  
+  /* Estiliza o corpo da página: centraliza conteúdo e define fundo */
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  /* Container principal que envolve login/cadastro */
+  .container {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    min-height: 500px;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25),
+                0 10px 10px rgba(0,0,0,0.22);
+    transition: all 0.6s ease-in-out;
+    display: flex;
+  }
+  
+  /* Contêiner dos formulários (login/cadastro) */
+  .form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0 50px;
+    text-align: center;
+    width: 50%;
+    background-color: white;
+  }
+  
+  /* Formulário de login visível por padrão */
+  .sign-in-container {
+    left: 0;
+    z-index: 2;
+  }
+  
+  /* Formulário de cadastro invisível por padrão */
+  .sign-up-container {
+    left: 0;
+    opacity: 0;
+    z-index: 1;
+  }
+  
+  /* Quando painel da direita está ativo: oculta login */
+  .container.right-panel-active .sign-in-container {
+    transform: translateX(100%);
+    opacity: 0;
+    z-index: 1;
+  }
+  
+  /* Quando painel da direita está ativo: exibe cadastro */
+  .container.right-panel-active .sign-up-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+  }
+  
+  /* Estiliza o formulário em si */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+  
+  /* Estilo dos inputs */
+  input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  /* Estilo dos botões */
+  button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    background-color: #4d7ef7;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  /* Efeito hover no botão */
+  button:hover {
+    background-color: #315ec9;
+  }
+  
+  /* Estilo para botão transparente com borda branca */
+  button.ghost {
+    background-color: transparent;
+    border: 2px solid #fff;
+  }
+  
+  /* Estilo dos links */
+  a {
+    font-size: 14px;
+    color: #777;
+    text-decoration: none;
+  }
+  
+  /* Container dos ícones sociais */
+  .social-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  /* Ícones sociais */
+  .social {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background-color: #1a1a1a;
+    color: #fff;
+    font-size: 20px;
+    text-decoration: none;
+    transition: 0.3s;
+    position: relative;
+    box-shadow: 0 0 0 rgba(236, 235, 235, 0);
+  }
+  
+  /* Efeito de hover geral */
+  .social:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Glow azul do Facebook ao passar o mouse */
+  .social.facebook:hover {
+    box-shadow: 0 0 15px #3b5998, 0 0 30px #3b5998, 0 0 45px #3b5998;
+  }
+  
+  /* Glow colorido para Google */
+  .social.google:hover {
+    box-shadow: 0 0 15px #000000, 0 0 30px #5bbb63, 0 0 45px #831313;
+  }
+  
+  /* Glow rosa/roxo para Instagram */
+  .social.instagram:hover {
+    box-shadow: 0 0 15px #e1306c, 0 0 30px #e1306c, 0 0 45px #e1306c;
+  }
+  
+  /* Glow azul claro para LinkedIn */
+  .social.linkedin:hover {
+    box-shadow: 0 0 15px #0077b5, 0 0 30px #0077b5, 0 0 45px #0077b5;
+  }
+  
+  /* Container da camada animada entre login e cadastro */
+  .overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.6s ease-in-out;
+    z-index: 100;
+  }
+  
+  /* Estilo da camada de fundo azul com transição */
+  .overlay {
+    background: linear-gradient(to right, #7494ec, #4d7ef7);
+    color: #fff;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: transform 0.8s ease-in-out, border-radius 0.8s ease-in-out;
+  }
+  
+  /* Move a overlay para o lado quando ativa */
+  .container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+  }
+  
+  /* Move visualmente a overlay */
+  .container.right-panel-active .overlay {
+    transform: translateX(50%);
+  }
+  
+  /* Painéis da overlay com texto e botão */
+  .overlay-panel {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: all 0.8s ease-in-out;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+  
+  /* Painel da esquerda */
+  .overlay-left {
+    transform: translateX(-20%);
+    left: 0;
+  }
+  
+  /* Painel da direita */
+  .overlay-right {
+    right: 0;
+    transform: translateX(0);
+    left: auto;
+  }
+  
+  /* Animação de entrada para painel esquerdo */
+  .container.right-panel-active .overlay-left {
+    transform: translateX(0);
+  }
+  
+  /* Animação de entrada para painel direito */
+  .container.right-panel-active .overlay-right {
+    transform: translateX(20%);
+  }
+
+  /* Dispositivos moveis */
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      width: 95%;
+      min-height: 700px;
+    }
+  
+    .form-container {
+      width: 100%;
+      position: relative;
+      padding: 30px 20px;
+    }
+  
+    .overlay-container {
+      display: none;
+    }
+  
+    .sign-in-container,
+    .sign-up-container {
+      width: 100%;
+      position: relative;
+      transform: translateX(0) !important;
+      opacity: 1 !important;
+      z-index: 1 !important;
+    }
+  
+    .container.right-panel-active .sign-in-container,
+    .container.right-panel-active .sign-up-container {
+      transform: translateX(0);
+    }
+  
+    .social-container {
+      gap: 10px;
+    }
+  
+    button {
+      width: 100%;
+    }
+  }
+  
+  
+  
+  
+  
